@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Entities;
-using Infrastructure.Data;
+using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 
@@ -13,23 +12,37 @@ namespace API.Controllers
 
     public class ProductsController : ControllerBase
     {
-        public StoreContext Context { get; }
-        public ProductsController(StoreContext context)
+        public IProductRepository Repo { get; }
+        public ProductsController(IProductRepository repo)
         {
-            Context = context;
-        }
-    
-    [HttpGet]
-    public async Task<ActionResult<List<Product>>> GetProducts()
-    {
-        var products = await Context.Products.ToListAsync();
-        return Ok(products);
-    }
+            Repo = repo;
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Product>> GetProduct(int id)
-    {
-        return await Context.Products.FindAsync(id);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Product>>> GetProducts()
+        {
+            var products = await Repo.GetProductsAsync();
+            return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Product>> GetProduct(int id)
+        {
+            return await Repo.GetProductByIdAsync(id);
+        }
+
+        [HttpGet("brands")]
+        public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductBrands()
+        {
+            return Ok(await Repo.GetProductBrandsAsync()); // Eliminate implicit conversion error
+        }
+
+        [HttpGet("types")]
+        public async Task<ActionResult<IReadOnlyList<ProductType>>> GetProductTypes()
+        {
+            return Ok(await Repo.GetProductTypesAsync()); // Eliminate implicit conversion error
+        }
+
     }
 }
-}   
