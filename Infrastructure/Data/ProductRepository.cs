@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities;
 using Core.Interfaces;
@@ -24,6 +25,10 @@ namespace Infrastructure.Data
 
         public async Task<IReadOnlyList<Product>> GetProductsAsync()
         {
+            var typeId = 1;
+            var products = _context.Products
+                .Where(x => x.ProductTypeId == typeId)
+                .Include(p => p.ProductType).ToListAsync();
             return await _context.Products
                 .Include(p => p.ProductBrand) // eager loading
                 .Include(p => p.ProductType)  // eager loading
