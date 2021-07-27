@@ -88,13 +88,13 @@ export class ShopComponent implements OnInit {
 
   onSearch(){
     this.shopParams.search = this.searchTerm.nativeElement.value
-    this.shopParams.pageNumber = 1
+    this.shopParams.pageNumber = 1 // all search results begin from page 1
     this.getProducts()
   }
 
   onReset(){
     this.searchTerm.nativeElement.value = ''
-    this.shopParams = new ShopParams()
+    this.shopParams = new ShopParams() // set default params values
     this.getProducts()
   }
 
