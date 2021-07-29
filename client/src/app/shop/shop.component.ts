@@ -11,7 +11,7 @@ import { ShopParams } from '../shared/models/shopParams'
   styleUrls: ['./shop.component.scss']
 })
 export class ShopComponent implements OnInit {
-  @ViewChild('search', { static: true }) // a selector name - "#search" in html template
+  @ViewChild('search', { static: false }) // a selector name - "#search" in html template, non-static bcs search element not always visible (ngIf)
   searchTerm!: ElementRef 
   // searchTerm is reference value set in DOM input element with "search" selector
 
