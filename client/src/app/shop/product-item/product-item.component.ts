@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { BasketService } from 'src/app/basket/basket.service';
 import { IProduct } from 'src/app/shared/models/product';
 
 @Component({
@@ -12,9 +13,12 @@ export class ProductItemComponent implements OnInit {
                                 // It says to the compiler: "As the developer, I know better than you 
                                 // that this variable cannot be null or undefined right now".
 
-  constructor() { }
+  constructor(private basketService: BasketService) { }
 
   ngOnInit(): void {
+  }
+  addItemToBasket(){
+    this.basketService.addItemToBasket(this.product)
   }
 
 }

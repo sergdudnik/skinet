@@ -56,7 +56,7 @@ namespace API
 
             app.UseRouting();
 
-            app.UseStaticFiles(); // serve pics
+            app.UseStaticFiles(); // serve pics and similar files
             
             app.UseCors("CorsPolicy");
 

@@ -4,3 +4,4 @@ appsettings.json
 *.db
 .idea
 node_modules
+*.rdb
