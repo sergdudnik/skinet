@@ -18,8 +18,8 @@ namespace Infrastructure.Data
         public async Task<Product> GetProductByIdAsync(int id)
         {
             return await _context.Products
-            .Include(p => p.ProductBrand) // eager loading
-            .Include(p => p.ProductType)  // eager loading
+            .Include(p => p.ProductBrand) // eager loading navigation props
+            .Include(p => p.ProductType)  // eager loading navigation props
             .FirstOrDefaultAsync(p => p.Id == id);
         }
 
@@ -30,8 +30,8 @@ namespace Infrastructure.Data
                 .Where(x => x.ProductTypeId == typeId)
                 .Include(p => p.ProductType).ToListAsync();
             return await _context.Products
-                .Include(p => p.ProductBrand) // eager loading
-                .Include(p => p.ProductType)  // eager loading
+                .Include(p => p.ProductBrand) // eager loading navigation props
+                .Include(p => p.ProductType)  // eager loading navigation props
                 .ToListAsync();
         }
 
